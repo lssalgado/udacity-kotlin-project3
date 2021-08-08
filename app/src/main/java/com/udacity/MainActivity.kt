@@ -9,6 +9,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,6 +24,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var notificationManager: NotificationManager
     private lateinit var pendingIntent: PendingIntent
     private lateinit var action: NotificationCompat.Action
+    private lateinit var toast: Toast
+    private val toastText: String by lazy { getString(R.string.please_select) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,13 +41,31 @@ class MainActivity : AppCompatActivity() {
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
+            Log.e("TESTE", "onReceive!!")
+            Log.e("TESTE", "$downloadID")
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            Log.e("TESTE", "$id")
         }
     }
 
     private fun download() {
+        val url = getURLFromSelectedOption()
+
+        if (url == null) {
+            if (::toast.isInitialized) {
+                toast.cancel()
+            }
+            toast = Toast.makeText(
+                applicationContext,
+                toastText,
+                Toast.LENGTH_SHORT
+            )
+            toast.show()
+            return
+        }
+
         val request =
-            DownloadManager.Request(Uri.parse(URL))
+            DownloadManager.Request(Uri.parse(url))
                 .setTitle(getString(R.string.app_name))
                 .setDescription(getString(R.string.app_description))
                 .setRequiresCharging(false)
@@ -55,10 +77,20 @@ class MainActivity : AppCompatActivity() {
             downloadManager.enqueue(request)// enqueue puts the download request in the queue.
     }
 
-    companion object {
-        private const val URL =
-            "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
-        private const val CHANNEL_ID = "channelId"
+    private fun getURLFromSelectedOption(): String? {
+        return when (radioGroup.checkedRadioButtonId) {
+            R.id.glide -> GLIDE_URL
+            R.id.loadApp -> LOAD_APP_URL
+            R.id.retrofit -> RETROFIT_URL
+            else -> null
+        }
     }
 
+    companion object {
+        private const val LOAD_APP_URL =
+            "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
+        private const val GLIDE_URL = "https://github.com/bumptech/glide/archive/master.zip"
+        private const val RETROFIT_URL = "https://github.com/square/retrofit/archive/master.zip"
+        private const val CHANNEL_ID = "channelId"
+    }
 }
