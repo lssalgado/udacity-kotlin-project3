@@ -1,18 +1,27 @@
 <resources>
+    <!--App-->
     <string name="app_name">ND940C3-Project</string>
     <string name="app_description">Download files from Internet</string>
     <string name="action_settings">Settings</string>
 
-
+    <!--Notifications-->
     <string name="notification_title">Udacity: Android Kotlin Nanodegree </string>
     <string name="notification_description">The Project 3 repository is downloaded</string>
     <string name="notification_button">See changes</string>
+    <string name="notification_channel_id">download_channel</string>
+    <string name="notification_channel_name">Downloads</string>
+    <string name="notification_channel_description">Notifies about Downloads</string>
 
+    <!--MainActivity-->
     <string name="button_name">Click me</string>
     <string name="button_loading">We are loading </string>
-    <string name="title_activity_detail">DetailActivity</string>
     <string name="please_select">Please select the file to Download</string>
+
+    <!--Download Options-->
     <string name="glide_description">Glide - Image Loadig Library by BumpTech</string>
     <string name="loadapp_description">LoadApp - Current repository by Udacity</string>
     <string name="retrofit_description">Retrofit - Type-safe HTTP client for Android and Java by Square, Inc</string>
+
+    <!--Detail Activity-->
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>
