@@ -9,14 +9,57 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <ImageView
+        android:id="@+id/downloadImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="100dp"
+        android:paddingEnd="100dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_baseline_cloud_download_24"
+        android:background="@color/colorPrimaryDark"
+        app:tint="@color/purple"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/custom_button"
+        app:layout_constraintTop_toBottomOf="@id/downloadImage"
+        android:layout_margin="24dp">
+
+        <RadioButton
+            android:id="@+id/glide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/glide_description" />
+
+        <RadioButton
+            android:id="@+id/loadApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/loadapp_description"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"/>
+
+        <RadioButton
+            android:id="@+id/retrofit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/retrofit_description" />
+
+    </RadioGroup>
+
     <com.udacity.LoadingButton
         android:id="@+id/custom_button"
         android:layout_width="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="60dp"
         android:layout_margin="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup"
+        android:background="@color/purple"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
