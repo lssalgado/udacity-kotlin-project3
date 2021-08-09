@@ -1,67 +1,40 @@
 # LoadApp
 
-In this project students will create an app to download a file from Internet by clicking on a custom-built button where:
- - width of the button gets animated from left to right;
- - text gets changed based on different states of the button;
- - circle gets be animated from 0 to 360 degrees
+[![Expected Result](https://img.youtube.com/vi/a2l2cuMWh20/0.jpg)](https://www.youtube.com/watch?v=a2l2cuMWh20)
 
-A notification will be sent once the download is complete. When a user clicks on notification, the user lands on detail activity and the notification gets dismissed. In detail activity, the status of the download will be displayed and animated via MotionLayout upon opening the activity.
+## Checklist
 
-[The final look of the app](https://gph.is/g/Zywmnre)
+### Project Instructions
+- [x] Create a radio list of the following options where one of them can be selected for downloading:
+  * https://github.com/bumptech/glide
+  * https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter
+  * https://github.com/square/retrofit
+- [ ] Create a custom loading button by extending View class and assigning custom attributes to it
+- [ ] Animate properties of the custom button once it’s clicked
+- [x] Add the custom button to the main screen, set on click listener and call download() function with selected Url
+- [x] If there is no selected option, display a Toast to let the user know to select one.
+- [x] Once the download is complete, send a notification with custom style and design
+- [x] Add a button with action to the notification, that opens a detailed screen of a downloaded repository
+- [ ] Create the details screen and display the name of the repository and status of the download
+- [ ] Use declarative XML with motionLayout to coordinate animations across the views on the detail screen
+- [ ] Add a button to the detail screen to return back to the main screen.
 
+### Project Rubric
+- [ ] Code compiles and runs without errors. The app should be cloned from Github, opened in local Android Studio and run on a device.
+- [ ] Customize and display of information using canvas with desired color and style:
+  - [ ] A custom button is created by extending View and custom attributes like background and text colors, etc are assigned to it.
+  - [ ] At least 2 custom attributes like background and text colors, etc are assigned to the button.
+    - [ ] Text and background are drawn using canvas
+- [ ] Animate UI elements with property animations to provide users with visual feedback in an Android app. The custom button properties like background, text and additional circle are animated by changing the width, text, and color
+- [x] Send contextual messages using notifications to keep users informed:
+  - [x] At least 2 types of contextual messages are displayed to the user: toast and notification
+    - [x] The toast is displayed inside the app
+    - [x] The notification is created and displayed in the status bar
+- [x] Add custom functionality to the notifications. A button is added to the notification which opens in a separate screen and custom values are passed to it
+- [ ] Use declarative XML with MotionLayout to coordinate animations across multiple views. MotionLayout is used to enhance the user experience when switching activities
 
-## Getting Started
-
-Instructions for how to get a copy of the project running on your local machine.
-
-### Dependencies
-
-```
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-```
-
-### Installation
-
-Step by step explanation of how to get a dev environment running.
-
-List out the steps:
-
-```
-1. Open Android Studio Application
-2. Choose "Open an existing Android Studio Project"
-3. In the opened finder find `nd940-c3-advanced-android-programming-project-starter` folder
-4. Click on the folder and select `starter` folder and click on "Open" button
-5. Once the project is opened in Android studio, go to File -> Sync Project with gradle files
-6. Click on "Run" button in Android Studio to install the project on the phone or emulator
-```
-
-## Testing
-
-Explain the steps needed to run any automated tests
-
-### Break Down Tests
-
-Explain what each test does and why
-
-```
-Examples here
-```
-## Project Instructions
-
-This section should contain all the student deliverables for this project.
-
-## Built With
-
-* [Android Studio](https://developer.android.com/studio) - Default IDE used to build android apps
-* [Kotlin](https://kotlinlang.org/) - Default language used to build this project
-
-Include all items used to build project.
-
-## License
-Please review the following [license agreement](https://bumptech.github.io/glide/dev/open-source-licenses.html)
+### Extra
+- [ ] Handle the animation if downloading/uploading takes a longer or shorter time than animation in the custom button [We don’t know how fast is the download, so once it’s complete make a function that cancels current animation and starts it over with different duration]
+- [ ] Add an additional view(EditText) in MainActivity where users can enter custom URLs for downloading/uploading files [Make sure to check if the inputted value is a valid url]
+- [ ] Open the downloaded file and display the information to the user on DetailsActivity
+- [ ] Customize notification UI based on the status of the download/upload (progress, fail, success)
