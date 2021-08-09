@@ -24,4 +24,6 @@
 
     <!--Detail Activity-->
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="fail">Fail</string>
+    <string name="ok">OK</string>
 </resources>
