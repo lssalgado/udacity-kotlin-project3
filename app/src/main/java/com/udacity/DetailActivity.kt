@@ -37,6 +37,10 @@ class DetailActivity : AppCompatActivity() {
 
         fileName.text = sFileName
         downloadStatus.text = bDownloadStatus.toString()
+
+        okButtom.setOnClickListener {
+            MainActivity.start(this)
+        }
     }
 
     override fun onResume() {
