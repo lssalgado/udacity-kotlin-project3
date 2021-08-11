@@ -1,9 +1,6 @@
 package com.udacity
 
-import android.app.DownloadManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -48,7 +45,10 @@ class MainActivity : AppCompatActivity() {
         custom_button.setOnClickListener {
             download()
         }
-        createChannel(getString(R.string.notification_channel_id), getString(R.string.notification_channel_name))
+        createChannel(
+            getString(R.string.notification_channel_id),
+            getString(R.string.notification_channel_name)
+        )
     }
 
     private fun createChannel(channelId: String, channelName: String) {
@@ -84,7 +84,8 @@ class MainActivity : AppCompatActivity() {
                 query.setFilterById(id)
                 val cursor = downloadManager.query(query)
                 var downloadStatus = false
-                val fileName = findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
+                val fileName =
+                    findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
                 if (cursor.moveToFirst()) {
                     val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
                     if (status == DownloadManager.STATUS_SUCCESSFUL) {

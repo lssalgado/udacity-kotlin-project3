@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.content_detail.*
 
-
 const val FILE_NAME = "fileName"
 const val DOWNLOAD_STATUS = "downloadStatus"
 
