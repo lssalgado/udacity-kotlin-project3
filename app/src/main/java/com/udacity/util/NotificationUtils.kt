@@ -74,7 +74,6 @@ fun NotificationManager.sendNotification(
         .setSmallIcon(R.drawable.ic_baseline_cloud_download_24)
         .setContentTitle(applicationContext.getString(R.string.notification_title))
         .setContentText(messageBody)
-        .setContentIntent(contentPendingIntent)
         .setLargeIcon(downloadImage)
         .addAction(
            R.drawable.ic_baseline_cloud_download_24,
