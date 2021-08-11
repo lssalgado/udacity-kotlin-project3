@@ -28,7 +28,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun handleIntent() {
         val extras = intent.extras
-        var sFileName = "Intent was missing 'FILE_NAME' key!!"
+        var sFileName = getString(R.string.missing_file_name_key)
         var bDownloadStatus = false
         extras?.let {
             sFileName = it.getString(FILE_NAME, sFileName)
