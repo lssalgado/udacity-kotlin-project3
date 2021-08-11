@@ -22,6 +22,21 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         setSupportActionBar(toolbar)
+
+        handleIntent()
+    }
+
+    private fun handleIntent() {
+        val extras = intent.extras
+        var sFileName = "Intent was missing 'FILE_NAME' key!!"
+        var bDownloadStatus = false
+        extras?.let {
+            sFileName = it.getString(FILE_NAME, sFileName)
+            bDownloadStatus = it.getBoolean(DOWNLOAD_STATUS)
+        }
+
+        fileName.text = sFileName
+        downloadStatus.text = bDownloadStatus.toString()
     }
 
     override fun onResume() {
