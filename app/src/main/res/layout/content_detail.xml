@@ -20,7 +20,8 @@
         app:layout_constraintEnd_toStartOf="@id/fileName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="File Name:" />
+        android:textColor="@color/gray"
+        android:text="File Name:" />
 
     <TextView
         android:id="@+id/fileName"
@@ -33,22 +34,24 @@
         tools:text="@string/loadapp_description" />
 
     <TextView
-        android:id="@+id/statusLabel"
+        android:id="@+id/downloadStatusLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
-        app:layout_constraintEnd_toStartOf="@id/status"
+        app:layout_constraintEnd_toStartOf="@id/downloadStatus"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fileName"
-        tools:text="Status:" />
+        android:textColor="@color/gray"
+        android:text="Status:" />
 
     <TextView
-        android:id="@+id/status"
+        android:id="@+id/downloadStatus"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/statusLabel"
-        app:layout_constraintTop_toTopOf="@id/statusLabel"
+        app:layout_constraintStart_toEndOf="@id/downloadStatusLabel"
+        app:layout_constraintTop_toTopOf="@id/downloadStatusLabel"
+        android:textColor="@color/gray"
         tools:text="@string/fail" />
 
     <Button
