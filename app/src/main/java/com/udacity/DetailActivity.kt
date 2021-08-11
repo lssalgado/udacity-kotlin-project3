@@ -29,13 +29,18 @@ class DetailActivity : AppCompatActivity() {
         val extras = intent.extras
         var sFileName = getString(R.string.missing_file_name_key)
         var bDownloadStatus = false
+        var textColor = getColor(R.color.red)
         extras?.let {
             sFileName = it.getString(FILE_NAME, sFileName)
             bDownloadStatus = it.getBoolean(DOWNLOAD_STATUS)
+            if (bDownloadStatus) {
+                textColor = getColor(R.color.colorPrimaryDark)
+            }
         }
 
         fileName.text = sFileName
         downloadStatus.text = bDownloadStatus.toString()
+        downloadStatus.setTextColor(textColor)
 
         okButtom.setOnClickListener {
             MainActivity.start(this)
