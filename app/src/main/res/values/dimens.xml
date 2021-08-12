@@ -2,7 +2,7 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_med">16dp</dimen>
     <dimen name="margin_large">24dp</dimen>
-    <dimen name="margin_huge">72dp</dimen>
+    <dimen name="margin_huge">80dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
 

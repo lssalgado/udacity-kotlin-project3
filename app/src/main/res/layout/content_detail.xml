@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/margin_med"
-    android:layout_marginTop="@dimen/margin_huge"
     android:layout_marginEnd="@dimen/margin_med"
     android:layout_marginBottom="@dimen/margin_large"
     app:layoutDescription="@xml/detail_motion_scene"
