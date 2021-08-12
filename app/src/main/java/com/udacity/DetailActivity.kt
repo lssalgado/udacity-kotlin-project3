@@ -45,7 +45,7 @@ class DetailActivity : AppCompatActivity() {
         downloadStatus.text = bDownloadStatus.toString()
         downloadStatus.setTextColor(textColor)
 
-        okButtom.setOnClickListener {
+        okButton.setOnClickListener {
             MainActivity.start(this)
         }
     }
