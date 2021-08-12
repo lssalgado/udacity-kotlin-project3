@@ -129,6 +129,8 @@ class MainActivity : AppCompatActivity() {
 
         downloadID =
             downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+
+        custom_button.fileSelected = true
     }
 
     private fun getURLFromSelectedOption(): String? {
