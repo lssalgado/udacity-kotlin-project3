@@ -32,7 +32,10 @@ class LoadingButton @JvmOverloads constructor(
         style = Paint.Style.FILL
         textAlign = Paint.Align.CENTER
     }
-
+    private val rect : AnimRectF by lazy {
+        AnimRectF(height.toFloat())
+    }
+    private var text = context.getString(R.string.download)
 
     // Based on Dan Lew solution to center text vertically in a canvas
     // https://blog.danlew.net/2013/10/03/centering_single_line_text_in_a_canvas/
