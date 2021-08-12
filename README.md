@@ -15,9 +15,9 @@
 - [x] If there is no selected option, display a Toast to let the user know to select one.
 - [x] Once the download is complete, send a notification with custom style and design
 - [x] Add a button with action to the notification, that opens a detailed screen of a downloaded repository
-- [ ] Create the details screen and display the name of the repository and status of the download
+- [x] Create the details screen and display the name of the repository and status of the download
 - [ ] Use declarative XML with motionLayout to coordinate animations across the views on the detail screen
-- [ ] Add a button to the detail screen to return back to the main screen.
+- [x] Add a button to the detail screen to return back to the main screen.
 
 ### Project Rubric
 - [ ] Code compiles and runs without errors. The app should be cloned from Github, opened in local Android Studio and run on a device.
