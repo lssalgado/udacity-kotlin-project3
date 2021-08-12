@@ -1,13 +1,19 @@
 package com.udacity
 
-import android.animation.*
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.RectF
 import android.text.TextPaint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import kotlin.properties.Delegates
+
 
 class LoadingButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -39,11 +45,21 @@ class LoadingButton @JvmOverloads constructor(
         style = Paint.Style.FILL
         textAlign = Paint.Align.CENTER
     }
+
     private val rect: AnimRectF by lazy {
         AnimRectF(height.toFloat())
     }
+    var sweepAngle = 0f
+    private val circleRect: RectF by lazy {
+        RectF(
+            (width - 300).toFloat(),
+            (height / 2 - 50).toFloat(),
+            (width - 200).toFloat(),
+            (height / 2 + 50).toFloat()
+        )
+    }
+
     private var text = context.getString(R.string.download)
-    private lateinit var animator: ObjectAnimator
 
     // Based on Dan Lew solution to center text vertically in a canvas
     // https://blog.danlew.net/2013/10/03/centering_single_line_text_in_a_canvas/
@@ -61,13 +77,16 @@ class LoadingButton @JvmOverloads constructor(
         isClickable = true
     }
 
-
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawColor(initialColor)
         paint.color = fillColor
         canvas.drawRect(rect, paint)
         canvas.drawText(text, (width / 2).toFloat(), (height / 2).toFloat() + textY, textPaint)
+        paint.color = Color.BLUE
+        canvas.drawRect(circleRect, paint)
+        paint.color = Color.BLACK
+        canvas.drawArc(circleRect, 0f, sweepAngle, true, paint)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -96,32 +115,34 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     private fun fillButton() {
-        animator = ObjectAnimator.ofFloat(rect, "right", width.toFloat())
-        animator.duration = 20000
-        animator.addUpdateListener { postInvalidate() }
-        animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator?) {
-                isEnabled = false
-            }
-
-            override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
-                isEnabled = true
+        text = context.getString(R.string.downloading)
+        valueAnimator.setFloatValues(0f, 1f)
+        valueAnimator.duration = 20000
+        valueAnimator.addUpdateListener {
+            sweepAngle = 360f * it.animatedFraction
+            rect.setRight(width * it.animatedFraction)
+            postInvalidate()
+        }
+        valueAnimator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
                 buttonState = ButtonState.Clicked
             }
         })
-        animator.start()
+        valueAnimator.start()
     }
 
     private fun speedUpAnimation() {
-        val percentage = animator.currentPlayTime.toFloat() / animator.duration.toFloat()
-        animator.duration = 200
-        animator.setCurrentFraction(percentage)
+        //TODO use download % instead of hardcoded value
+        val percentage = valueAnimator.currentPlayTime.toFloat() / valueAnimator.duration.toFloat()
+        valueAnimator.duration = 200
+        valueAnimator.setCurrentFraction(percentage)
     }
 
     private fun resetValues() {
         text = context.getString(R.string.download)
         rect.setRight(0f)
         postInvalidate()
+        sweepAngle = 0f
     }
 
     class AnimRectF(bottom: Float) : RectF(0f, 0f, 0f, bottom) {
