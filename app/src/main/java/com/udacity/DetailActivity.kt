@@ -3,6 +3,7 @@ package com.udacity
 import android.app.NotificationManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionLayout
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.content_detail.*
 
@@ -23,6 +24,8 @@ class DetailActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         handleIntent()
+
+        (motionLayout as MotionLayout).transitionToEnd()
     }
 
     private fun handleIntent() {
