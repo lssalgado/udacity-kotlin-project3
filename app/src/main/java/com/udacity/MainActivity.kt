@@ -80,6 +80,11 @@ class MainActivity : AppCompatActivity() {
             if (intent?.action != null && intent.action == DownloadManager.ACTION_DOWNLOAD_COMPLETE) {
                 val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
 
+                // Will only speed up the animation if still running
+                if (custom_button.buttonState == ButtonState.Loading) {
+                    custom_button.buttonState = ButtonState.Completed
+                }
+
                 val query = DownloadManager.Query()
                 query.setFilterById(id)
                 val cursor = downloadManager.query(query)
@@ -129,6 +134,8 @@ class MainActivity : AppCompatActivity() {
 
         downloadID =
             downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+
+        custom_button.buttonState = ButtonState.Loading
     }
 
     private fun getURLFromSelectedOption(): String? {
