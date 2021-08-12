@@ -12,24 +12,54 @@
             app:targetId="@+id/downloadStatusLabel" />
 
         <KeyFrameSet>
+            <!--The labels bounce a little lower than the end position-->
+            <KeyPosition
+                app:framePosition="50"
+                app:keyPositionType="parentRelative"
+                app:motionTarget="@id/fileNameLabel"
+                app:percentY="0.15" />
             <KeyPosition
                 app:framePosition="50"
                 app:keyPositionType="parentRelative"
                 app:motionTarget="@id/downloadStatusLabel"
                 app:percentY="0.2" />
 
+            <!--The labels get to end position at frame position 85-->
+            <KeyPosition
+                app:framePosition="85"
+                app:keyPositionType="deltaRelative"
+                app:motionTarget="@id/fileNameLabel"
+                app:percentY="1.0" />
+            <KeyPosition
+                app:framePosition="85"
+                app:keyPositionType="deltaRelative"
+                app:motionTarget="@id/downloadStatusLabel"
+                app:percentY="1.0" />
+
+            <!--Values fade in after the labels stopped moving-->
+            <KeyAttribute
+                android:alpha="0.0"
+                app:framePosition="85"
+                app:motionTarget="@id/fileName" />
+            <KeyAttribute
+                android:alpha="0.0"
+                app:framePosition="85"
+                app:motionTarget="@id/downloadStatus" />
+
+            <!--Button fades in during the first quarter-->
             <KeyAttribute
                 android:alpha="1.0"
                 app:framePosition="25"
                 app:motionTarget="@id/okButton" />
+
+            <!--Button background color gets darker during the animation-->
             <KeyAttribute
                 app:framePosition="0"
                 app:motionTarget="@id/okButton">
                 <CustomAttribute
                     app:attributeName="backgroundColor"
-                    app:customColorValue="@color/accentWithTransparency" />
+                    app:customColorValue="@color/colorAccentLighter" />
             </KeyAttribute>
-
             <KeyAttribute
                 app:framePosition="100"
                 app:motionTarget="@id/okButton">
@@ -67,8 +97,7 @@
             android:layout_marginTop="@dimen/margin_small"
             app:layout_constraintEnd_toStartOf="@id/downloadStatus"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-<!--            app:layout_constraintTop_toBottomOf="@id/fileName" />-->
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@id/downloadStatus"
@@ -95,7 +124,7 @@
             android:id="@id/fileNameLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_huge"
             app:layout_constraintEnd_toStartOf="@id/fileName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
