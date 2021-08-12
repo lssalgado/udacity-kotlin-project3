@@ -40,6 +40,7 @@ class LoadingButton @JvmOverloads constructor(
 
     private val initialColor: Int by lazy { context.getColor(R.color.colorPrimary) }
     private val fillColor: Int by lazy { context.getColor(R.color.colorPrimaryDark) }
+    private val circleColor: Int by lazy { context.getColor(R.color.colorAccent) }
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         textAlign = Paint.Align.CENTER
@@ -82,9 +83,7 @@ class LoadingButton @JvmOverloads constructor(
         paint.color = fillColor
         canvas.drawRect(rect, paint)
         canvas.drawText(text, (width / 2).toFloat(), (height / 2).toFloat() + textY, textPaint)
-        paint.color = Color.BLUE
-        canvas.drawRect(circleRect, paint)
-        paint.color = Color.BLACK
+        paint.color = circleColor
         canvas.drawArc(circleRect, 0f, sweepAngle, true, paint)
     }
 
