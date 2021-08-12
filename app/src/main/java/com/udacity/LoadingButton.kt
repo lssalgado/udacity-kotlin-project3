@@ -1,11 +1,8 @@
 package com.udacity
 
-import android.animation.ValueAnimator
+import android.animation.*
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Typeface
+import android.graphics.*
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.util.Log
@@ -80,10 +77,27 @@ class LoadingButton @JvmOverloads constructor(
         val ret = super.performClick()
 
         if (fileSelected) {
-            //TODO run animation
+            text = context.getString(R.string.downloading)
+            fillButton()
         }
 
         return ret
+    }
+
+    private fun fillButton() {
+        val animator = ObjectAnimator.ofFloat(rect, "right", width.toFloat())
+        animator.duration = 500
+        animator.addUpdateListener { postInvalidate() }
+        animator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                isEnabled = false
+            }
+
+            override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
+                isEnabled = true
+            }
+        })
+        animator.start()
     }
 
     class AnimRectF(bottom: Float): RectF(0f, 0f, 1f, bottom) {
