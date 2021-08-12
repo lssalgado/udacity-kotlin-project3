@@ -81,4 +81,14 @@ class LoadingButton @JvmOverloads constructor(
 
         return ret
     }
+
+    class AnimRectF(bottom: Float): RectF(0f, 0f, 1f, bottom) {
+        fun getRight(): Float {
+            return right
+        }
+
+        fun setRight(right: Float) {
+            this.right = right
+        }
+    }
 }
