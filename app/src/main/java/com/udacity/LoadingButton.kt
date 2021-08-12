@@ -25,7 +25,7 @@ class LoadingButton @JvmOverloads constructor(
                 fillButton()
             }
             ButtonState.Completed -> {
-                //TODO
+                speedUpAnimation()
             }
             ButtonState.Clicked -> {
                 resetValues()
@@ -110,6 +110,12 @@ class LoadingButton @JvmOverloads constructor(
             }
         })
         animator.start()
+    }
+
+    private fun speedUpAnimation() {
+        val percentage = animator.currentPlayTime.toFloat() / animator.duration.toFloat()
+        animator.duration = 200
+        animator.setCurrentFraction(percentage)
     }
 
     private fun resetValues() {
