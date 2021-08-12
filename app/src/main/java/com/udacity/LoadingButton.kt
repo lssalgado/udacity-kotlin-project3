@@ -95,12 +95,20 @@ class LoadingButton @JvmOverloads constructor(
 
             override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
                 isEnabled = true
+                resetValues()
             }
         })
         animator.start()
     }
 
-    class AnimRectF(bottom: Float): RectF(0f, 0f, 1f, bottom) {
+    private fun resetValues() {
+        fileSelected = false
+        text = context.getString(R.string.download)
+        rect.setRight(0f)
+        postInvalidate()
+    }
+
+    class AnimRectF(bottom: Float): RectF(0f, 0f, 0f, bottom) {
         fun getRight(): Float {
             return right
         }
