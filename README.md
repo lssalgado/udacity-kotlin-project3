@@ -9,8 +9,8 @@
   * https://github.com/bumptech/glide
   * https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter
   * https://github.com/square/retrofit
-- [ ] Create a custom loading button by extending View class and assigning custom attributes to it
-- [ ] Animate properties of the custom button once it’s clicked
+- [x] Create a custom loading button by extending View class and assigning custom attributes to it
+- [x] Animate properties of the custom button once it’s clicked
 - [x] Add the custom button to the main screen, set on click listener and call download() function with selected Url
 - [x] If there is no selected option, display a Toast to let the user know to select one.
 - [x] Once the download is complete, send a notification with custom style and design
@@ -21,11 +21,11 @@
 
 ### Project Rubric
 - [ ] Code compiles and runs without errors. The app should be cloned from Github, opened in local Android Studio and run on a device.
-- [ ] Customize and display of information using canvas with desired color and style:
-  - [ ] A custom button is created by extending View and custom attributes like background and text colors, etc are assigned to it.
-  - [ ] At least 2 custom attributes like background and text colors, etc are assigned to the button.
-    - [ ] Text and background are drawn using canvas
-- [ ] Animate UI elements with property animations to provide users with visual feedback in an Android app. The custom button properties like background, text and additional circle are animated by changing the width, text, and color
+- [x] Customize and display of information using canvas with desired color and style:
+  - [x] A custom button is created by extending View and custom attributes like background and text colors, etc are assigned to it.
+  - [x] At least 2 custom attributes like background and text colors, etc are assigned to the button.
+    - [x] Text and background are drawn using canvas
+- [x] Animate UI elements with property animations to provide users with visual feedback in an Android app. The custom button properties like background, text and additional circle are animated by changing the width, text, and color
 - [x] Send contextual messages using notifications to keep users informed:
   - [x] At least 2 types of contextual messages are displayed to the user: toast and notification
     - [x] The toast is displayed inside the app
