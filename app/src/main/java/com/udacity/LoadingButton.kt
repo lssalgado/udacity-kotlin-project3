@@ -43,6 +43,7 @@ class LoadingButton @JvmOverloads constructor(
         AnimRectF(height.toFloat())
     }
     private var text = context.getString(R.string.download)
+    private lateinit var animator: ObjectAnimator
 
     // Based on Dan Lew solution to center text vertically in a canvas
     // https://blog.danlew.net/2013/10/03/centering_single_line_text_in_a_canvas/
@@ -95,8 +96,8 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     private fun fillButton() {
-        val animator = ObjectAnimator.ofFloat(rect, "right", width.toFloat())
-        animator.duration = 3000
+        animator = ObjectAnimator.ofFloat(rect, "right", width.toFloat())
+        animator.duration = 20000
         animator.addUpdateListener { postInvalidate() }
         animator.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator?) {
