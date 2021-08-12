@@ -19,8 +19,18 @@ class LoadingButton @JvmOverloads constructor(
 
     private val valueAnimator = ValueAnimator()
 
-    private var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
-
+    var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
+        when (new) {
+            ButtonState.Loading -> {
+                fillButton()
+            }
+            ButtonState.Completed -> {
+                //TODO
+            }
+            ButtonState.Clicked -> {
+                resetValues()
+            }
+        }
     }
 
     private val initialColor: Int by lazy { context.getColor(R.color.colorPrimary) }
@@ -95,14 +105,13 @@ class LoadingButton @JvmOverloads constructor(
 
             override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
                 isEnabled = true
-                resetValues()
+                buttonState = ButtonState.Clicked
             }
         })
         animator.start()
     }
 
     private fun resetValues() {
-        fileSelected = false
         text = context.getString(R.string.download)
         rect.setRight(0f)
         postInvalidate()
