@@ -24,8 +24,6 @@ class DetailActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         handleIntent()
-
-        (motionLayout as MotionLayout).transitionToEnd()
     }
 
     private fun handleIntent() {
