@@ -5,4 +5,6 @@
     <color name="colorAccent">#F9A825</color>
     <color name="white">#FFFFFF</color>
     <color name="purple">#9e5fff</color>
+    <color name="gray">#555555</color>
+    <color name="red">#BC0909</color>
 </resources>

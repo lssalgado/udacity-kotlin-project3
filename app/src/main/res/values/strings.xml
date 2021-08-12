@@ -24,4 +24,7 @@
 
     <!--Detail Activity-->
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="fail">Fail</string>
+    <string name="ok">OK</string>
+    <string name="missing_file_name_key">Intent was missing \'FILE_NAME\' key!!</string>
 </resources>

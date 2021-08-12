@@ -1,9 +1,6 @@
 package com.udacity
 
-import android.app.DownloadManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -12,11 +9,10 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
 import com.udacity.util.sendNotification
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -35,6 +31,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var action: NotificationCompat.Action
     private lateinit var toast: Toast
     private val toastText: String by lazy { getString(R.string.please_select) }
+    private val downloadManager: DownloadManager by lazy {
+        getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +45,10 @@ class MainActivity : AppCompatActivity() {
         custom_button.setOnClickListener {
             download()
         }
-        createChannel(getString(R.string.notification_channel_id), getString(R.string.notification_channel_name))
+        createChannel(
+            getString(R.string.notification_channel_id),
+            getString(R.string.notification_channel_name)
+        )
     }
 
     private fun createChannel(channelId: String, channelName: String) {
@@ -75,12 +77,29 @@ class MainActivity : AppCompatActivity() {
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            Log.e("TESTE", "onReceive!!")
-            Log.e("TESTE", "$downloadID")
-            val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-            Log.e("TESTE", "$id")
+            if (intent?.action != null && intent.action == DownloadManager.ACTION_DOWNLOAD_COMPLETE) {
+                val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
 
-            notificationManager.sendNotification("Download finished!!", applicationContext)
+                val query = DownloadManager.Query()
+                query.setFilterById(id)
+                val cursor = downloadManager.query(query)
+                var downloadStatus = false
+                val fileName =
+                    findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
+                if (cursor.moveToFirst()) {
+                    val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+                    if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                        downloadStatus = true
+                    }
+                }
+
+                notificationManager.sendNotification(
+                    "Download finished!!",
+                    applicationContext,
+                    fileName,
+                    downloadStatus
+                )
+            }
         }
     }
 
@@ -108,7 +127,6 @@ class MainActivity : AppCompatActivity() {
                 .setAllowedOverMetered(true)
                 .setAllowedOverRoaming(true)
 
-        val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         downloadID =
             downloadManager.enqueue(request)// enqueue puts the download request in the queue.
     }
@@ -127,6 +145,10 @@ class MainActivity : AppCompatActivity() {
             "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
         private const val GLIDE_URL = "https://github.com/bumptech/glide/archive/master.zip"
         private const val RETROFIT_URL = "https://github.com/square/retrofit/archive/master.zip"
-        private const val CHANNEL_ID = "channelId"
+
+        fun start(activity: Activity) {
+            val intent = Intent(activity, MainActivity::class.java)
+            activity.startActivity(intent)
+        }
     }
 }
