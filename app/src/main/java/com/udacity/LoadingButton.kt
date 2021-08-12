@@ -56,9 +56,10 @@ class LoadingButton @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        paint.color = Color.WHITE
         canvas.drawColor(initialColor)
-        canvas.drawText("Download", (width / 2).toFloat(), (height / 2).toFloat() + textY, textPaint)
+        paint.color = fillColor
+        canvas.drawRect(rect, paint)
+        canvas.drawText(text, (width / 2).toFloat(), (height / 2).toFloat() + textY, textPaint)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
