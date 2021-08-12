@@ -39,7 +39,7 @@ class LoadingButton @JvmOverloads constructor(
         style = Paint.Style.FILL
         textAlign = Paint.Align.CENTER
     }
-    private val rect : AnimRectF by lazy {
+    private val rect: AnimRectF by lazy {
         AnimRectF(height.toFloat())
     }
     private var text = context.getString(R.string.download)
@@ -52,7 +52,7 @@ class LoadingButton @JvmOverloads constructor(
         textSize = 55.0f
     }
     private val textY: Float by lazy {
-        val textHeight = textPaint . descent () - textPaint.ascent()
+        val textHeight = textPaint.descent() - textPaint.ascent()
         (textHeight / 2) - textPaint.descent()
     }
 
@@ -117,7 +117,7 @@ class LoadingButton @JvmOverloads constructor(
         postInvalidate()
     }
 
-    class AnimRectF(bottom: Float): RectF(0f, 0f, 0f, bottom) {
+    class AnimRectF(bottom: Float) : RectF(0f, 0f, 0f, bottom) {
         fun getRight(): Float {
             return right
         }
