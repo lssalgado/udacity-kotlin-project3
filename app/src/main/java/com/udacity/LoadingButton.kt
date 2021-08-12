@@ -86,7 +86,7 @@ class LoadingButton @JvmOverloads constructor(
 
     private fun fillButton() {
         val animator = ObjectAnimator.ofFloat(rect, "right", width.toFloat())
-        animator.duration = 500
+        animator.duration = 3000
         animator.addUpdateListener { postInvalidate() }
         animator.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator?) {
