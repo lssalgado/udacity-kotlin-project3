@@ -5,10 +5,13 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.database.ContentObserver
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,11 +19,18 @@ import androidx.core.app.NotificationCompat
 import com.udacity.util.sendNotification
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
 
     private var downloadID: Long = 0
+
+    private lateinit var loadingButton: LoadingButton
+
+    private var isDownloading = false
 
     private val notificationManager: NotificationManager by lazy {
         getSystemService(
@@ -40,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        loadingButton = custom_button
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
         custom_button.setOnClickListener {
@@ -77,7 +88,9 @@ class MainActivity : AppCompatActivity() {
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
+            Log.e("TESTE", "onReceive")
             if (intent?.action != null && intent.action == DownloadManager.ACTION_DOWNLOAD_COMPLETE) {
+                isDownloading = false
                 val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
 
                 // Will only speed up the animation if still running
@@ -97,6 +110,7 @@ class MainActivity : AppCompatActivity() {
                         downloadStatus = true
                     }
                 }
+                cursor.close()
 
                 notificationManager.sendNotification(
                     "Download finished!!",
@@ -135,7 +149,46 @@ class MainActivity : AppCompatActivity() {
         downloadID =
             downloadManager.enqueue(request)// enqueue puts the download request in the queue.
 
+        isDownloading = true
+        updatePercentage()
+
+
         custom_button.buttonState = ButtonState.Loading
+    }
+
+    private fun updatePercentage() {
+        CoroutineScope(Dispatchers.Default).launch {
+            while (isDownloading){
+                getPercentage()
+            }
+        }
+    }
+
+    private fun getPercentage() {
+        val query = DownloadManager.Query()
+
+        query.setFilterById(downloadID)
+        val cursor = downloadManager.query(query)
+        if (cursor.moveToFirst()) {
+            val downloaded =
+                cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+            val total =
+                cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+
+            if (downloaded != total && total > 0) {
+                var percentage = downloaded * 100L / total
+                if (percentage == 0L) {
+                    percentage = 1
+                }
+                if (loadingButton.downloadPercentage != percentage.toFloat()) {
+                    Log.e("TESTE", "downloaded = $downloaded")
+                    Log.e("TESTE", "total = $total")
+                    Log.e("TESTE", "percentage = $percentage")
+                    loadingButton.downloadPercentage = percentage.toFloat() / 100f
+                }
+            }
+        }
+        cursor.close()
     }
 
     private fun getURLFromSelectedOption(): String? {

@@ -10,7 +10,10 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.text.TextPaint
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
+import android.view.animation.AccelerateInterpolator
+import kotlin.math.min
 import kotlin.properties.Delegates
 
 
@@ -21,6 +24,7 @@ class LoadingButton @JvmOverloads constructor(
     private var heightSize = 0
 
     var fileSelected = false
+    var hasChanged = false
 
     private val valueAnimator = ValueAnimator()
 
@@ -35,6 +39,12 @@ class LoadingButton @JvmOverloads constructor(
             ButtonState.Clicked -> {
                 resetValues()
             }
+        }
+    }
+
+    var downloadPercentage: Float by Delegates.observable(0f) { p, old, new ->
+        if (buttonState == ButtonState.Loading) {
+            updateAnimation(new)
         }
     }
 
@@ -134,6 +144,23 @@ class LoadingButton @JvmOverloads constructor(
         val percentage = valueAnimator.currentPlayTime.toFloat() / valueAnimator.duration.toFloat()
         valueAnimator.duration = 200
         valueAnimator.setCurrentFraction(percentage)
+    }
+
+    private fun updateAnimation(new: Float) {
+        val animFraction = valueAnimator.animatedFraction
+//        Log.e("TESTE", "new = $new animFraction = $animFraction")
+//        if (new < animFraction) {
+//            val newDuration = animFraction/new
+//            Log.e("TESTE", "newDuration = $newDuration")
+//            valueAnimator.duration = valueAnimator.duration * newDuration.toLong()
+//        }
+//        valueAnimator.setCurrentFraction(new)
+        var multiplier = 1f
+        if (new > 90 && new > animFraction && !hasChanged) {
+            hasChanged = true
+            multiplier = min(new / animFraction, 10f)
+        }
+        valueAnimator.interpolator = AccelerateInterpolator(multiplier)
     }
 
     private fun resetValues() {
