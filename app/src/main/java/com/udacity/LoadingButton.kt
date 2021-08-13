@@ -136,18 +136,22 @@ class LoadingButton @JvmOverloads constructor(
                 buttonState = ButtonState.Clicked
             }
         })
-        valueAnimator.start()
+        valueAnimator.setCurrentFraction(0.01f)
+//        valueAnimator.start()
     }
 
     private fun speedUpAnimation() {
         //TODO use download % instead of hardcoded value
         val percentage = valueAnimator.currentPlayTime.toFloat() / valueAnimator.duration.toFloat()
         valueAnimator.duration = 200
-        valueAnimator.setCurrentFraction(percentage)
+//        valueAnimator.setCurrentFraction(percentage)
+        valueAnimator.start()
     }
 
     private fun updateAnimation(new: Float) {
-        val animFraction = valueAnimator.animatedFraction
+        Log.e("TESTE", "updating animation")
+        valueAnimator.setCurrentFraction(new)
+//        val animFraction = valueAnimator.animatedFraction
 //        Log.e("TESTE", "new = $new animFraction = $animFraction")
 //        if (new < animFraction) {
 //            val newDuration = animFraction/new
@@ -155,12 +159,12 @@ class LoadingButton @JvmOverloads constructor(
 //            valueAnimator.duration = valueAnimator.duration * newDuration.toLong()
 //        }
 //        valueAnimator.setCurrentFraction(new)
-        var multiplier = 1f
-        if (new > 90 && new > animFraction && !hasChanged) {
-            hasChanged = true
-            multiplier = min(new / animFraction, 10f)
-        }
-        valueAnimator.interpolator = AccelerateInterpolator(multiplier)
+//        var multiplier = 1f
+//        if (new > 90 && new > animFraction && !hasChanged) {
+//            hasChanged = true
+//            multiplier = min(new / animFraction, 10f)
+//        }
+//        valueAnimator.interpolator = AccelerateInterpolator(multiplier)
     }
 
     private fun resetValues() {
