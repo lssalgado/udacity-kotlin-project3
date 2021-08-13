@@ -20,8 +20,6 @@ class LoadingButton @JvmOverloads constructor(
     private var widthSize = 0
     private var heightSize = 0
 
-    var fileSelected = false
-
     private val valueAnimator = ValueAnimator()
 
     var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
@@ -98,18 +96,6 @@ class LoadingButton @JvmOverloads constructor(
         widthSize = w
         heightSize = h
         setMeasuredDimension(w, h)
-    }
-
-    override fun performClick(): Boolean {
-        //Call onClickListeners before the rest
-        val ret = super.performClick()
-
-        if (fileSelected) {
-            text = context.getString(R.string.downloading)
-            fillButton()
-        }
-
-        return ret
     }
 
     private fun fillButton() {

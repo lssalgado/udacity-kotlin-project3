@@ -3,6 +3,7 @@ package com.udacity
 import android.app.NotificationManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionLayout
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.content_detail.*
 
@@ -42,7 +43,7 @@ class DetailActivity : AppCompatActivity() {
         downloadStatus.text = bDownloadStatus.toString()
         downloadStatus.setTextColor(textColor)
 
-        okButtom.setOnClickListener {
+        okButton.setOnClickListener {
             MainActivity.start(this)
         }
     }

@@ -16,7 +16,7 @@
 - [x] Once the download is complete, send a notification with custom style and design
 - [x] Add a button with action to the notification, that opens a detailed screen of a downloaded repository
 - [x] Create the details screen and display the name of the repository and status of the download
-- [ ] Use declarative XML with motionLayout to coordinate animations across the views on the detail screen
+- [x] Use declarative XML with motionLayout to coordinate animations across the views on the detail screen
 - [x] Add a button to the detail screen to return back to the main screen.
 
 ### Project Rubric
@@ -31,7 +31,7 @@
     - [x] The toast is displayed inside the app
     - [x] The notification is created and displayed in the status bar
 - [x] Add custom functionality to the notifications. A button is added to the notification which opens in a separate screen and custom values are passed to it
-- [ ] Use declarative XML with MotionLayout to coordinate animations across multiple views. MotionLayout is used to enhance the user experience when switching activities
+- [x] Use declarative XML with MotionLayout to coordinate animations across multiple views. MotionLayout is used to enhance the user experience when switching activities
 
 ### Extra
 - [ ] Handle the animation if downloading/uploading takes a longer or shorter time than animation in the custom button [We don’t know how fast is the download, so once it’s complete make a function that cancels current animation and starts it over with different duration]
