@@ -9,6 +9,9 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Patterns
+import android.view.View
+import android.webkit.URLUtil
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,7 +33,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pendingIntent: PendingIntent
     private lateinit var action: NotificationCompat.Action
     private lateinit var toast: Toast
-    private val toastText: String by lazy { getString(R.string.please_select) }
+    private val selectOption: String by lazy { getString(R.string.please_select) }
+    private val enterValidUrl: String by lazy { getString(R.string.enter_valid_url) }
+    private lateinit var toastText: String
+    private lateinit var fileName: String
     private val downloadManager: DownloadManager by lazy {
         getSystemService(DOWNLOAD_SERVICE) as DownloadManager
     }
@@ -40,8 +46,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        toastText = selectOption
+
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            customUrl.visibility = if (checkedId == R.id.custom) {
+                toastText = enterValidUrl
+                customUrl.isEnabled = true
+                View.VISIBLE
+            } else {
+                toastText = selectOption
+                customUrl.isEnabled = false
+                View.GONE
+            }
+        }
         custom_button.setOnClickListener {
             download()
         }
@@ -89,8 +108,6 @@ class MainActivity : AppCompatActivity() {
                 query.setFilterById(id)
                 val cursor = downloadManager.query(query)
                 var downloadStatus = false
-                val fileName =
-                    findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
                 if (cursor.moveToFirst()) {
                     val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
                     if (status == DownloadManager.STATUS_SUCCESSFUL) {
@@ -140,10 +157,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun getURLFromSelectedOption(): String? {
         return when (radioGroup.checkedRadioButtonId) {
-            R.id.glide -> GLIDE_URL
-            R.id.loadApp -> LOAD_APP_URL
-            R.id.retrofit -> RETROFIT_URL
+            R.id.glide -> {
+                fileName = findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
+                GLIDE_URL
+            }
+            R.id.loadApp -> {
+                fileName = findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
+                LOAD_APP_URL
+            }
+            R.id.retrofit -> {
+                fileName = findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
+                RETROFIT_URL
+            }
+            R.id.custom -> validateUrl()
             else -> null
+        }
+    }
+
+    private fun validateUrl(): String? {
+        val typedUrl = customUrl.text.toString()
+        return if (Patterns.WEB_URL.matcher(typedUrl).matches()) {
+            fileName = typedUrl
+            typedUrl
+        } else {
+            null
         }
     }
 

@@ -47,9 +47,28 @@
             android:id="@+id/retrofit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="@string/retrofit_description" />
 
+        <RadioButton
+            android:id="@+id/custom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/url" />
+
     </RadioGroup>
+
+    <EditText
+        android:id="@+id/customUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup"
+        android:layout_margin="24dp"
+        android:autofillHints="@string/enter_the_download_url"
+        android:hint="@string/enter_the_download_url"
+        android:textColor="@color/colorAccent"
+        />
 
     <com.udacity.LoadingButton
         android:id="@+id/custom_button"
