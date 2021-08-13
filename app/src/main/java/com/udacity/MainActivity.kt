@@ -108,15 +108,17 @@ class MainActivity : AppCompatActivity() {
                 query.setFilterById(id)
                 val cursor = downloadManager.query(query)
                 var downloadStatus = false
+                var statusText = "failed"
                 if (cursor.moveToFirst()) {
                     val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
                     if (status == DownloadManager.STATUS_SUCCESSFUL) {
                         downloadStatus = true
+                        statusText = "finished successfully"
                     }
                 }
 
                 notificationManager.sendNotification(
-                    "Download finished!!",
+                    "Download $statusText!!",
                     applicationContext,
                     fileName,
                     downloadStatus
