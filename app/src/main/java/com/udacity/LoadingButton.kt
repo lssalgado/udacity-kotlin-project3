@@ -13,6 +13,7 @@ import android.util.AttributeSet
 import android.view.View
 import kotlin.properties.Delegates
 
+private const val DEFAULT_DURATION: Long = 5000
 
 class LoadingButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -101,7 +102,8 @@ class LoadingButton @JvmOverloads constructor(
     private fun fillButton() {
         text = context.getString(R.string.downloading)
         valueAnimator.setFloatValues(0f, 1f)
-        valueAnimator.duration = 20000
+        valueAnimator.duration = DEFAULT_DURATION
+        valueAnimator.repeatCount = ValueAnimator.INFINITE
         valueAnimator.addUpdateListener {
             sweepAngle = 360f * it.animatedFraction
             rect.setRight(width * it.animatedFraction)
@@ -116,10 +118,17 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     private fun speedUpAnimation() {
-        //TODO use download % instead of hardcoded value
-        val percentage = valueAnimator.currentPlayTime.toFloat() / valueAnimator.duration.toFloat()
-        valueAnimator.duration = 200
-        valueAnimator.setCurrentFraction(percentage)
+        // Since canceling the animation and restarting it with shorter duration makes the it look
+        // very clunky, I decided to go another way and keep the actual animation frame and make the
+        // animation shorter
+
+        // Removes the repeat count so the animation can end
+        valueAnimator.repeatCount = 0
+        // Keeps the same animation frame
+        val curTime = (valueAnimator.currentPlayTime % DEFAULT_DURATION) / 10
+        valueAnimator.currentPlayTime = curTime
+        // Makes the animation 10 times faster
+        valueAnimator.duration = DEFAULT_DURATION / 10
     }
 
     private fun resetValues() {
