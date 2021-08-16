@@ -87,12 +87,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        // Removes all pending notifications
-        notificationManager.cancelAll()
-    }
-
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action != null && intent.action == DownloadManager.ACTION_DOWNLOAD_COMPLETE) {
