@@ -37,7 +37,7 @@
 - [x] Handle the animation if downloading/uploading takes a longer or shorter time than animation in the custom button [We don’t know how fast is the download, so once it’s complete make a function that cancels current animation and starts it over with different duration]
 - [x] Add an additional view(EditText) in MainActivity where users can enter custom URLs for downloading/uploading files [Make sure to check if the inputted value is a valid url]
 - [ ] Open the downloaded file and display the information to the user on DetailsActivity
-- [ ] Customize notification UI based on the status of the download/upload:
-  - [ ] progress
+- [x] Customize notification UI based on the status of the download/upload:
+  - [x] progress
   - [x] fail
   - [x] success

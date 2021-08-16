@@ -15,9 +15,13 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import com.udacity.util.DownloadStatus
 import com.udacity.util.sendNotification
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,6 +43,8 @@ class MainActivity : AppCompatActivity() {
     private val downloadManager: DownloadManager by lazy {
         getSystemService(DOWNLOAD_SERVICE) as DownloadManager
     }
+
+    private var isDownloading = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,12 +106,12 @@ class MainActivity : AppCompatActivity() {
                 val query = DownloadManager.Query()
                 query.setFilterById(id)
                 val cursor = downloadManager.query(query)
-                var downloadStatus = false
+                var downloadStatus = DownloadStatus.FAIL
                 var statusText = "failed"
                 if (cursor.moveToFirst()) {
                     val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
                     if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                        downloadStatus = true
+                        downloadStatus = DownloadStatus.SUCCESS
                         statusText = "finished successfully"
                     }
                 }
@@ -147,6 +153,8 @@ class MainActivity : AppCompatActivity() {
         downloadID =
             downloadManager.enqueue(request)// enqueue puts the download request in the queue.
 
+        waitForDownloadToBegin()
+
         custom_button.buttonState = ButtonState.Loading
     }
 
@@ -177,6 +185,42 @@ class MainActivity : AppCompatActivity() {
         } else {
             null
         }
+    }
+
+    private fun waitForDownloadToBegin() {
+        CoroutineScope(Dispatchers.Default).launch {
+            while (!isDownloading){
+                checkIfDownloadBegan()
+            }
+            sendNotification()
+        }
+    }
+
+    private fun sendNotification() {
+        CoroutineScope(Dispatchers.Main).launch {
+            notificationManager.sendNotification(
+                "Download in progress!!",
+                applicationContext,
+                fileName,
+                DownloadStatus.IN_PROGRESS
+            )
+        }
+    }
+
+    private fun checkIfDownloadBegan() {
+        val query = DownloadManager.Query()
+
+        query.setFilterById(downloadID)
+        val cursor = downloadManager.query(query)
+        if (cursor.moveToFirst()) {
+            val downloaded =
+                cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+
+            if (downloaded > 0) {
+                isDownloading = true
+            }
+        }
+        cursor.close()
     }
 
     companion object {
