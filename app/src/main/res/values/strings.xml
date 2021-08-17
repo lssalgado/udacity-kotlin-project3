@@ -43,4 +43,6 @@
     <!--Loading Button-->
     <string name="download">Download</string>
     <string name="downloading">We are loading</string>
+    <string name="file_name">File Name:</string>
+    <string name="status">Status:</string>
 </resources>
