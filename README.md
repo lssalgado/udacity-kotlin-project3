@@ -20,7 +20,7 @@
 - [x] Add a button to the detail screen to return back to the main screen.
 
 ### Project Rubric
-- [ ] Code compiles and runs without errors. The app should be cloned from Github, opened in local Android Studio and run on a device.
+- [x] Code compiles and runs without errors. The app should be cloned from Github, opened in local Android Studio and run on a device.
 - [x] Customize and display of information using canvas with desired color and style:
   - [x] A custom button is created by extending View and custom attributes like background and text colors, etc are assigned to it.
   - [x] At least 2 custom attributes like background and text colors, etc are assigned to the button.
@@ -36,7 +36,7 @@
 ### Extra
 - [x] Handle the animation if downloading/uploading takes a longer or shorter time than animation in the custom button [We don’t know how fast is the download, so once it’s complete make a function that cancels current animation and starts it over with different duration]
 - [x] Add an additional view(EditText) in MainActivity where users can enter custom URLs for downloading/uploading files [Make sure to check if the inputted value is a valid url]
-- [ ] Open the downloaded file and display the information to the user on DetailsActivity
+- [x] Open the downloaded file and display the information to the user on DetailsActivity
 - [x] Customize notification UI based on the status of the download/upload:
   - [x] progress
   - [x] fail
