@@ -54,4 +54,13 @@ class DetailActivity : AppCompatActivity() {
         // Removes all pending notifications
         notificationManager.cancelAll()
     }
+
+    data class FileDetails(
+        val id: Long,
+        val mediaType: String,
+        val size: Long,
+        val lastModified: String,
+        val uri: String,
+        val localUri: String
+    )
 }
