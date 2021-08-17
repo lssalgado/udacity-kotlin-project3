@@ -16,6 +16,7 @@
     <string name="button_name">Click me</string>
     <string name="button_loading">We are loading </string>
     <string name="please_select">Please select the file to Download</string>
+    <string name="enter_valid_url">Please enter a valid URL</string>
 
     <!--Download Options-->
     <string name="glide_description">Glide - Image Loadig Library by BumpTech</string>
@@ -24,6 +25,7 @@
 
     <!--Detail Activity-->
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="success">Success</string>
     <string name="fail">Fail</string>
     <string name="ok">OK</string>
     <string name="missing_file_name_key">Intent was missing \'FILE_NAME\' key!!</string>
@@ -31,4 +33,6 @@
     <!--Loading Button-->
     <string name="download">Download</string>
     <string name="downloading">We are loading</string>
+    <string name="url">Custom URL</string>
+    <string name="enter_the_download_url">Enter the Download Url</string>
 </resources>

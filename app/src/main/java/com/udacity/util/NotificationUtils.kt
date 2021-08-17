@@ -35,6 +35,8 @@ import com.udacity.R
 // Notification ID.
 private const val NOTIFICATION_ID = 0
 
+enum class DownloadStatus { IN_PROGRESS, SUCCESS, FAIL }
+
 /**
  * Builds and delivers the notification.
  *
@@ -45,23 +47,8 @@ fun NotificationManager.sendNotification(
     messageBody: String,
     applicationContext: Context,
     fileName: String,
-    downloadStatus: Boolean
+    downloadStatus: DownloadStatus
 ) {
-    val bundle = Bundle()
-
-    bundle.putString(FILE_NAME, fileName)
-    bundle.putBoolean(DOWNLOAD_STATUS, downloadStatus)
-
-    val contentIntent = Intent(applicationContext, DetailActivity::class.java)
-    contentIntent.putExtras(bundle)
-    val contentPendingIntent = PendingIntent.getActivity(
-        applicationContext,
-        NOTIFICATION_ID,
-        contentIntent,
-        PendingIntent.FLAG_UPDATE_CURRENT,
-        bundle
-    )
-
     val downloadImage = BitmapFactory.decodeResource(
         applicationContext.resources,
         R.drawable.ic_baseline_cloud_download_24
@@ -75,12 +62,32 @@ fun NotificationManager.sendNotification(
         .setContentTitle(applicationContext.getString(R.string.notification_title))
         .setContentText(messageBody)
         .setLargeIcon(downloadImage)
-        .addAction(
-           R.drawable.ic_baseline_cloud_download_24,
+
+    if (downloadStatus != DownloadStatus.IN_PROGRESS) {
+        val success = downloadStatus == DownloadStatus.SUCCESS
+
+        val bundle = Bundle()
+
+        bundle.putString(FILE_NAME, fileName)
+        bundle.putBoolean(DOWNLOAD_STATUS, success)
+
+        val contentIntent = Intent(applicationContext, DetailActivity::class.java)
+        contentIntent.putExtras(bundle)
+        val contentPendingIntent = PendingIntent.getActivity(
+            applicationContext,
+            NOTIFICATION_ID,
+            contentIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT,
+            bundle
+        )
+
+        builder.addAction(
+            R.drawable.ic_baseline_cloud_download_24,
             applicationContext.getString(R.string.notification_button),
             contentPendingIntent
         )
-        .setAutoCancel(true)
+            .setAutoCancel(true)
+    }
 
     notify(NOTIFICATION_ID, builder.build())
 }

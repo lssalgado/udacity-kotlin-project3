@@ -4,8 +4,8 @@
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
-        app:constraintSetEnd="@+id/end"
-        app:constraintSetStart="@+id/start"
+        app:constraintSetEnd="@id/end"
+        app:constraintSetStart="@id/start"
         motion:autoTransition="animateToEnd"
         app:duration="3000">
 
