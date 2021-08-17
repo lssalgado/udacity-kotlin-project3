@@ -2,7 +2,10 @@ package com.udacity
 
 import android.app.DownloadManager
 import android.app.NotificationManager
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.content_detail.*
@@ -28,21 +31,44 @@ class DetailActivity : AppCompatActivity() {
         getSystemService(DOWNLOAD_SERVICE) as DownloadManager
     }
 
-    private var fileDetails: FileDetails? by Delegates.observable<FileDetails?>(null) { p, old, new ->
-        new?.let {
-            fileId.text = new.id.toString()
-            mediaType.text = new.mediaType
-            size.text = new.size.toString()
-            lastModified.text = new.lastModified
-            uri.text = new.uri
-            localUri.text = new.localUri
+    private var fileDetails: FileDetails? by Delegates.observable<FileDetails?>(null) { _, _, new ->
+        CoroutineScope(Dispatchers.Main).launch {
+            new?.let {
+                fileId.text = new.id.toString()
+                mediaType.text = new.mediaType
+                size.text = new.size.toString()
+                lastModified.text = new.lastModified
+                uri.text = new.uri
+                localUri.text = new.localUri
+
+                if (new.localUri.isNotEmpty()) {
+                    openFileButton.isEnabled = true
+                }
+            }
         }
+    }
+
+    // Base on Martin Himmel answer https://stackoverflow.com/a/31711281
+    private fun openFile(localUri: String, mediaType: String) {
+        val uri = Uri.parse(localUri)
+
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(uri, mediaType)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        startActivity(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         setSupportActionBar(toolbar)
+
+        openFileButton.setOnClickListener {
+            fileDetails?.let {
+                openFile(it.localUri, it.mediaType)
+            }
+        }
 
         handleIntent()
     }

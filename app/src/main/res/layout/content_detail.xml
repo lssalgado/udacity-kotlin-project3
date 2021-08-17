@@ -152,6 +152,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button_background_selector"
         android:text="@string/open_file"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:enabled="false"/>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
