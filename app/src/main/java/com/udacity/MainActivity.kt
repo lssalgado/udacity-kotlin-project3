@@ -120,7 +120,8 @@ class MainActivity : AppCompatActivity() {
                     "Download $statusText!!",
                     applicationContext,
                     fileName,
-                    downloadStatus
+                    downloadStatus,
+                    id
                 )
             }
         }

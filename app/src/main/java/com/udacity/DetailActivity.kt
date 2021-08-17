@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.content_detail.*
 
 const val FILE_NAME = "fileName"
 const val DOWNLOAD_STATUS = "downloadStatus"
+const val DOWNLOAD_ID = "downloadId"
 
 class DetailActivity : AppCompatActivity() {
 
