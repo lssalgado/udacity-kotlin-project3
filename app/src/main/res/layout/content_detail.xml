@@ -18,16 +18,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
         android:text="File Name:"
-        android:textColor="@color/gray"
         app:layout_constraintEnd_toStartOf="@id/fileName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/fileLabel" />
 
     <TextView
         android:id="@+id/fileName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
+        style="@style/fileValue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/fileNameLabel"
         app:layout_constraintTop_toTopOf="@id/fileNameLabel"
@@ -39,20 +39,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
         android:text="Status:"
-        android:textColor="@color/gray"
         app:layout_constraintEnd_toStartOf="@id/downloadStatus"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fileName" />
+        app:layout_constraintTop_toBottomOf="@id/fileName"
+        style="@style/fileLabel" />
 
     <TextView
         android:id="@+id/downloadStatus"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/downloadStatusLabel"
         app:layout_constraintTop_toTopOf="@id/downloadStatusLabel"
-        tools:text="@string/fail" />
+        tools:text="@string/fail"
+        style="@style/fileLabel" />
 
     <Button
         android:id="@+id/okButton"
