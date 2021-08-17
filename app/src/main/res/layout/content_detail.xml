@@ -8,7 +8,6 @@
     android:layout_marginEnd="@dimen/margin_med"
     android:layout_marginBottom="@dimen/margin_large"
     app:layoutDescription="@xml/detail_motion_scene"
-    app:motionDebug="SHOW_PATH"
     tools:context=".DetailActivity"
     tools:showIn="@layout/activity_detail">
 
