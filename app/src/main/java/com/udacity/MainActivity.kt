@@ -162,15 +162,18 @@ class MainActivity : AppCompatActivity() {
     private fun getURLFromSelectedOption(): String? {
         return when (radioGroup.checkedRadioButtonId) {
             R.id.glide -> {
-                fileName = findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
+                fileName =
+                    findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
                 GLIDE_URL
             }
             R.id.loadApp -> {
-                fileName = findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
+                fileName =
+                    findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
                 LOAD_APP_URL
             }
             R.id.retrofit -> {
-                fileName = findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
+                fileName =
+                    findViewById<RadioButton>(radioGroup.checkedRadioButtonId).text.toString()
                 RETROFIT_URL
             }
             R.id.custom -> validateUrl()
@@ -190,7 +193,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun waitForDownloadToBegin() {
         CoroutineScope(Dispatchers.Default).launch {
-            while (!isDownloading){
+            while (!isDownloading) {
                 checkIfDownloadBegan()
             }
             sendNotification()
