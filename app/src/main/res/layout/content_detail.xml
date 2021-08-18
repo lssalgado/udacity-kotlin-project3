@@ -8,7 +8,6 @@
     android:layout_marginEnd="@dimen/margin_med"
     android:layout_marginBottom="@dimen/margin_large"
     app:layoutDescription="@xml/detail_motion_scene"
-    app:motionDebug="SHOW_PATH"
     tools:context=".DetailActivity"
     tools:showIn="@layout/activity_detail">
 
@@ -17,17 +16,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
-        android:text="File Name:"
-        android:textColor="@color/gray"
+        android:text="@string/file_name"
         app:layout_constraintEnd_toStartOf="@id/fileName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/fileLabel" />
 
     <TextView
         android:id="@+id/fileName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
+        style="@style/fileValue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/fileNameLabel"
         app:layout_constraintTop_toTopOf="@id/fileNameLabel"
@@ -38,21 +37,21 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
-        android:text="Status:"
-        android:textColor="@color/gray"
+        android:text="@string/status"
         app:layout_constraintEnd_toStartOf="@id/downloadStatus"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fileName" />
+        app:layout_constraintTop_toBottomOf="@id/fileName"
+        style="@style/fileLabel" />
 
     <TextView
         android:id="@+id/downloadStatus"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/downloadStatusLabel"
         app:layout_constraintTop_toTopOf="@id/downloadStatusLabel"
-        tools:text="@string/fail" />
+        tools:text="@string/fail"
+        style="@style/fileLabel" />
 
     <Button
         android:id="@+id/okButton"
@@ -61,5 +60,99 @@
         android:text="@string/ok"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/fileDetails"
+        android:textSize="24sp"
+        android:textColor="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/file_details"/>
+    <TextView
+        android:id="@+id/fileIdLabel"
+        style="@style/fileLabel.detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/file_id"/>
+    <TextView
+        android:id="@+id/fileId"
+        style="@style/fileValue.detail"
+        android:text="@string/missing_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/mediaTypeLabel"
+        style="@style/fileLabel.detail"
+        android:text="@string/media_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/mediaType"
+        style="@style/fileValue.detail"
+        android:text="@string/missing_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/sizeLabel"
+        style="@style/fileLabel.detail"
+        android:text="@string/size_in_bytes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/size"
+        style="@style/fileValue.detail"
+        android:text="@string/missing_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/lastModifiedLabel"
+        style="@style/fileLabel.detail"
+        android:text="@string/last_modified"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/lastModified"
+        style="@style/fileValue.detail"
+        android:text="@string/missing_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/uriLabel"
+        style="@style/fileLabel.detail"
+        android:text="@string/uri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/uri"
+        style="@style/fileValue.detail"
+        android:text="@string/missing_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/localUriLabel"
+        style="@style/fileLabel.detail"
+        android:text="@string/local_uri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/localUri"
+        style="@style/fileValue.detail"
+        android:text="@string/missing_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/openFileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background_selector"
+        android:text="@string/open_file"
+        android:textColor="@color/white"
+        android:enabled="false"/>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

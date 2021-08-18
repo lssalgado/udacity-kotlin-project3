@@ -27,10 +27,7 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import com.udacity.DOWNLOAD_STATUS
-import com.udacity.DetailActivity
-import com.udacity.FILE_NAME
-import com.udacity.R
+import com.udacity.*
 
 // Notification ID.
 private const val NOTIFICATION_ID = 0
@@ -47,7 +44,8 @@ fun NotificationManager.sendNotification(
     messageBody: String,
     applicationContext: Context,
     fileName: String,
-    downloadStatus: DownloadStatus
+    downloadStatus: DownloadStatus,
+    downloadId: Long = -1
 ) {
     val downloadImage = BitmapFactory.decodeResource(
         applicationContext.resources,
@@ -70,6 +68,7 @@ fun NotificationManager.sendNotification(
 
         bundle.putString(FILE_NAME, fileName)
         bundle.putBoolean(DOWNLOAD_STATUS, success)
+        bundle.putLong(DOWNLOAD_ID, downloadId)
 
         val contentIntent = Intent(applicationContext, DetailActivity::class.java)
         contentIntent.putExtras(bundle)
